@@ -114,7 +114,7 @@ def command(engine, format, filepath=None, renderer=None, formatter=None):
     suffix = '.'.join(reversed(format_arg))
     format_arg = ':'.join(format_arg)
 
-    cmd = [engine, '-T%s' % format_arg]
+    cmd = [os.path.join('@graphviz@/bin', engine), '-T%s' % format_arg]
     rendered = None
     if filepath is not None:
         cmd.extend(['-O', filepath])
@@ -217,7 +217,7 @@ def version():
         subprocess.CalledProcessError: If the exit status is non-zero.
         RuntimmeError: If the output cannot be parsed into a version number.
     """
-    cmd = ['dot', '-V']
+    cmd = ['@graphviz@/bin/dot', '-V']
     out, _ = run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     info = out.decode('ascii')
